@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace ConsoleApp1
 {
@@ -43,27 +44,52 @@ namespace ConsoleApp1
                 Console.WriteLine();
                 workExperiences[i] = new WorkExperience(firstnames[i], lastnames[i], ages[i], coursedescs[i], yearlevels[i], workdescs[i], noOfEperiences[i]);
             }
-            Console.WriteLine("Sort Ascending");
-            sortAsc(workExperiences);
-            for (int i = 0; i < length; i++)
+
+            do
             {
-                string fullName = workExperiences[i].getFirstname() + " " + workExperiences[i].getLastname();
-                Console.WriteLine(fullName);
-            }
+                menu();
+                int choice;
+                choice = Convert.ToInt32(Console.ReadLine());
+                switch (choice)
+                {
+                    case 1:
+                        for (int i = 0; i < workExperiences.Length; i++)
+                        {
+                            string fullName = workExperiences[i].getFirstname() + " " + workExperiences[i].getLastname();
+                            Console.WriteLine($"Name: {fullName}");
+                            Console.WriteLine($"Age: {workExperiences[i].getAge()}");
+                            Console.WriteLine($"Course: {workExperiences[i].getCoursedesc()}");
+                            Console.WriteLine($"Year Level: {workExperiences[i].getYearlevel()}");
+                            Console.WriteLine($"Work: {workExperiences[i].getWorkDesc()}");
+                            Console.WriteLine($"Work Experience: {workExperiences[i].getNoOfExperience()}");
+                        }
+                        break;
+                    case 2:
+                        sortAsc(workExperiences);
+                        break;
+                    case 3:
+                        sortDesc(workExperiences);
+                        break;
+                    case 4:
+                        Console.WriteLine("Enter name to search: ");
+                        string name = Console.ReadLine();
+                        searchByName(name, workExperiences);
+                        break;
+                    case 5:
+                        return;
+                }
+            } while (true);
 
-            Console.WriteLine("Sort Descending");
-            sortDesc(workExperiences);
-            for (int i = 0; i < length; i++)
-            {
-                string fullName = workExperiences[i].getFirstname() + " " + workExperiences[i].getLastname();
-                Console.WriteLine(fullName);
-            }
+        }
 
-            /*string search;
-            Console.WriteLine("Search by name: ");
-            search = Console.ReadLine();
-            searchByName(search, workExperiences);*/
-
+        static public void menu()
+        {
+            Console.WriteLine("1 - Dsiplay Contents");
+            Console.WriteLine("2 - Sort Ascending");
+            Console.WriteLine("3 - Sort Descending");
+            Console.WriteLine("4 - Search by Name");
+            Console.WriteLine("5 - Quit");
+            
         }
 
         static public void searchByName(string name, WorkExperience[] workExperience)
