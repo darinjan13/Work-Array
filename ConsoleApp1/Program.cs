@@ -10,36 +10,6 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            /*string firstname, lastname, coursedesc, workdesc;
-            int age, yearlevel, noOfEperience;
-
-            Console.Write("Enter First Name: ");
-            firstname = Console.ReadLine();
-
-            Console.Write("Enter Last Name: ");
-            lastname = Console.ReadLine();
-
-            Console.Write("Enter Age: ");
-            age = Convert.ToInt32(Console.ReadLine());
-
-            Console.Write("Enter Course: ");
-            coursedesc = Console.ReadLine();
-
-            Console.Write("Enter Year Level: ");
-            yearlevel = Convert.ToInt32(Console.ReadLine());
-
-            Console.Write("Enter Work Experience: ");
-            workdesc = Console.ReadLine();
-
-            Console.Write("Enter No. of Experience: ");
-            noOfEperience = Convert.ToInt32(Console.ReadLine());
-
-            Console.WriteLine();
-            Registration registration = new Registration(firstname, lastname, age);
-            Course course = new Course(firstname, lastname, age, coursedesc, yearlevel);
-            WorkExperience workExperience = new WorkExperience(firstname, lastname, age, coursedesc, yearlevel, workdesc, noOfEperience);
-            workExperience.displayinfo();
-            */
             int length = 3;
             Registration[] registrations = new Registration[length];
             Course[] courses = new Course[length];
@@ -70,30 +40,75 @@ namespace ConsoleApp1
                 Console.Write("Enter No. of Experience: ");
                 noOfEperiences[i] = Convert.ToInt32(Console.ReadLine());
 
-                registrations[i] = new Registration(firstnames[i], lastnames[i], ages[i]);
-                courses[i] = new Course(firstnames[i], lastnames[i], ages[i], coursedescs[i], yearlevels[i]);
+                Console.WriteLine();
                 workExperiences[i] = new WorkExperience(firstnames[i], lastnames[i], ages[i], coursedescs[i], yearlevels[i], workdescs[i], noOfEperiences[i]);
             }
-
-            /*for (int i = 0; i < length; i++)
-            {
-                workExperiences[i].displayinfo();
-                Console.WriteLine();
-            }
-            */
-
-            string search;
-            Console.WriteLine("Search by name: ");
-            search = Console.ReadLine();
-
+            Console.WriteLine("Sort Ascending");
+            sortAsc(workExperiences);
             for (int i = 0; i < length; i++)
             {
-                if (registrations[i].getFirstname() == search) { }
-                {
-                    Console.WriteLine($"{search} is found in index {i}");
-                }
+                string fullName = workExperiences[i].getFirstname() + " " + workExperiences[i].getLastname();
+                Console.WriteLine(fullName);
             }
 
+            Console.WriteLine("Sort Descending");
+            sortDesc(workExperiences);
+            for (int i = 0; i < length; i++)
+            {
+                string fullName = workExperiences[i].getFirstname() + " " + workExperiences[i].getLastname();
+                Console.WriteLine(fullName);
+            }
+
+            /*string search;
+            Console.WriteLine("Search by name: ");
+            search = Console.ReadLine();
+            searchByName(search, workExperiences);*/
+
+        }
+
+        static public void searchByName(string name, WorkExperience[] workExperience)
+        {
+            for (int i = 0; i < workExperience.Length; i++)
+            {
+                string fullName = workExperience[i].getFirstname() + " " + workExperience[i].getLastname();
+                if (fullName.Equals(name))
+                {
+                    Console.WriteLine($"{name} is found in index {i+1}");
+                }
+            }
+        }
+
+        static public void sortAsc(WorkExperience[] workExperience)
+        {
+
+            for (int i = 0; i < workExperience.Length - 1; i++)
+            {
+                for (int j = 0; j < workExperience.Length - i - 1; j++)
+                {
+                    if (string.Compare(workExperience[j].getFirstname(), workExperience[j + 1].getFirstname()) > 0)
+                    {
+                        WorkExperience temp = workExperience[j];
+                        workExperience[j] = workExperience[j + 1];
+                        workExperience[j + 1] = temp;
+                    }
+                }
+            }
+        }
+        static public void sortDesc(WorkExperience[] workExperience)
+        {
+
+            for (int i = 0; i < workExperience.Length - 1; i++)
+            {
+                for (int j = 0; j < workExperience.Length - i - 1; j++)
+                {
+                    if (string.Compare(workExperience[j].getFirstname(), workExperience[j + 1].getFirstname()) < 0)
+                    {
+                        WorkExperience temp = workExperience[j];
+                        workExperience[j] = workExperience[j + 1];
+                        workExperience[j + 1] = temp;
+                    }
+                }
+            }
         }
     }
 }
